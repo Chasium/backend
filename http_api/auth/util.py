@@ -29,7 +29,10 @@ def password_legal(password):
 
 def password_verified(username, password):
     user = UserData.query.filter_by(name=username).first()
-    return True if password == user.password else False
+    if user:
+        return True if password == user.password else False
+    else:
+        return False
 
 
 def add_user(username, password):
@@ -41,7 +44,7 @@ def add_user(username, password):
     return
 
 
-def get_session(user_id):
+def get_session(user_id):  # not safe
     for session, user in login_user.items():
         if user == user_id:
             return session
@@ -85,7 +88,8 @@ def get_user(session: str) -> UserData:
 def get_session_by_name(user_name: str) -> str:
     current_user: UserData = UserData.query.filter_by(
         name=user_name).first()
-    for session, user in login_user.items():
-        if user == current_user.id:
-            return session
+    if current_user:
+        for session, user in login_user.items():
+            if user == current_user.id:
+                return session
     return None
