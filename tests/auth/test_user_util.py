@@ -37,3 +37,7 @@ class UserUtilsTestCase(unittest.TestCase):
         self.assertEqual(util.password_legal(password), True)
         password = 'GIs4a121~`!@#$%^&*()_-+=[{]}|:;<>'
         self.assertEqual(util.password_legal(password), False)
+
+
+if __name__ == '__main__':
+    unittest.main()

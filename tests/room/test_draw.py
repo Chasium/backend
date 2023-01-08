@@ -1,3 +1,6 @@
+'''
+    This test is not finished.
+'''
 import unittest
 from unittest.mock import patch
 import json
@@ -78,3 +81,7 @@ class DrawTestCase(unittest.TestCase):
     @patch.object(UpdateBgResponse, 'emit_to_room')
     def test_update_bg(self, mock0):
         mock0.return_value = None
+
+
+if __name__ == '__main__':
+    unittest.main()

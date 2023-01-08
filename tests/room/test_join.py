@@ -20,13 +20,17 @@ from ws_api.room.join import handle_create, handle_join, handle_quit
 
 class RoomTestCase(unittest.TestCase):
 
+    @patch.object(CreateRoomResponse, 'emit_to_room')
+    @patch.object(CreateRoomResponse, 'emit_back')
     @patch('ws_api.room.join.join_room')
-    def setUp(self, mock_join_room):
-        mock_join_room.return_value = None
+    def setUp(self, mock0, mock1, mock2):
+        mock0.return_value = None
+        mock1.return_value = None
+        mock2.return_value = None
 
         http_api.config.from_object(config)
         http_api.testing = True
-        db.init_app(http_api)
+        # db.init_app(http_api)
         ws_api.init_app(http_api, cors_allowed_origins="*")
         self.app_context = http_api.app_context()
         self.app_context.push()
@@ -72,7 +76,19 @@ class RoomTestCase(unittest.TestCase):
         self.assertNotEqual(response['roomId'], None)
         self.alice_room = response['roomId']
 
-    def tearDown(self):
+    @patch.object(QuitRoomResponse, 'emit_to_room')
+    @patch.object(QuitRoomResponse, 'emit_back')
+    @patch('ws_api.room.join.close_room')
+    def tearDown(self, mock0, mock1, mock2):
+        mock0.return_value = None
+        mock1.return_value = None
+        mock2.return_value = None
+
+        data = {"session": self.alice_session}
+        response = handle_quit(QuitRoomRequest.from_request(data))
+        data = {"session": self.bob_session}
+        response = handle_quit(QuitRoomRequest.from_request(data))
+
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
@@ -179,3 +195,7 @@ class RoomTestCase(unittest.TestCase):
         response = handle_quit(QuitRoomRequest.from_request(data))
         self.assertEqual(response['code'], 2)
         self.assertEqual(response['user'], None)
+
+
+if __name__ == '__main__':
+    unittest.main()

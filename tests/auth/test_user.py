@@ -14,9 +14,9 @@ from http_api.auth.util import logged_in, user_exists
 
 class UserAuthTestCase(unittest.TestCase):
     def setUp(self):
-        http_api.config.from_object(config)
-        http_api.testing = True
-        db.init_app(http_api)
+        # http_api.config.from_object(config)
+        # http_api.testing = True
+        # db.init_app(http_api)
         ws_api.init_app(http_api, cors_allowed_origins="*")
         self.app_context = http_api.app_context()
         self.app_context.push()
@@ -75,8 +75,7 @@ class UserAuthTestCase(unittest.TestCase):
             json=data
         )
         json_data = json.loads(response.data)
-        # BUG
-        # self.assertEqual(json_data['code'], 3)
+        self.assertEqual(json_data['code'], 0)
         self.assertEqual(json_data['session'], temp_session)
         self.assertEqual(logged_in('alice'), True)
 
@@ -120,7 +119,7 @@ class UserAuthTestCase(unittest.TestCase):
         self.assertEqual(user_exists(""), False)
 
         # user existed
-        data = {"userName": "alice", "password": "abc"}
+        data = {"userName": "alice", "password": "abc123"}
         response = client.post(
             '/auth/register',
             json=data
@@ -148,3 +147,7 @@ class UserAuthTestCase(unittest.TestCase):
         json_data = json.loads(response.data)
         self.assertEqual(json_data['code'], 0)
         self.assertEqual(user_exists('bob'), True)
+
+
+if __name__ == '__main__':
+    unittest.main()

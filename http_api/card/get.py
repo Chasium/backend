@@ -19,7 +19,7 @@ def get(req: GetCardsRequest):
         card = Card()
         card.solve__id(i.id)
         card.solve__name(i.name)
-        card.solve__value(i.content)
+        card.solve__value(i.value)
         card.solve__template_id(i.template_id)
         cards.append(card)
 

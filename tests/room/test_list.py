@@ -20,9 +20,9 @@ from ws_api.room.join import handle_create, handle_quit
 class RoomListTestCase(unittest.TestCase):
 
     def setUp(self):
-        http_api.config.from_object(config)
-        http_api.testing = True
-        db.init_app(http_api)
+        # http_api.config.from_object(config)
+        # http_api.testing = True
+        # db.init_app(http_api)
         ws_api.init_app(http_api, cors_allowed_origins="*")
         self.app_context = http_api.app_context()
         self.app_context.push()
@@ -129,3 +129,7 @@ class RoomListTestCase(unittest.TestCase):
         json_data = json.loads(response.data)
         self.assertEqual(json_data['code'], 0)
         self.assertEqual(len(json_data['rooms']), 0)
+
+
+if __name__ == '__main__':
+    unittest.main()
