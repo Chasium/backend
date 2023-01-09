@@ -5,8 +5,14 @@ from http_api import http_api
 from ws_api import ws_api
 from db import db
 import config
+import config_production
+import os
 
-http_api.config.from_object(config)
+if os.environ.get('PRODUCTION_ENV') == 'true':
+    http_api.config.from_object(config_production)
+else:
+    http_api.config.from_object(config)
+
 db.init_app(http_api)
 ws_api.init_app(http_api, cors_allowed_origins="*")
 
