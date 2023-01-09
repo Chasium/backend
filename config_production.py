@@ -5,7 +5,7 @@
 SQL_HOST = 'db'
 SQL_PORT = '3306'
 SQL_DATABASE = 'chasium'
-SQL_USERNAME = 'chasium'
+SQL_USERNAME = 'root'
 SQL_PASSWORD = '123456'
 
 DB_URI = \
