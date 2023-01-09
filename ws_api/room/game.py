@@ -182,7 +182,7 @@ def handle_start_game(req: StartGameRequest):
 
 
 def handle_end_game(req: EndGameRequest):
-    res = StartGameResponse()
+    res = EndGameResponse()
     user = get_user(req.session)
     if user is None:
         res.solve__code(1)

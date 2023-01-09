@@ -18,3 +18,4 @@ def exec(req: Union[EditCardResult, ExecScriptResult]):
         room.player_card_map[req.user] = req.card
         res.solve__card(req.card)
     res.emit_to_room(req.room_id)
+    return res.to_json()

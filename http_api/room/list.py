@@ -17,7 +17,7 @@ def list(req: ListRoomsRequest):
         room = room_dict[i]
         temp.solve__id(i)
         temp.solve__users(len(room.get_users()))
-        rooms.append(room)
+        rooms.append(temp)
     res.solve__code(0)
     res.solve__rooms(rooms)
     return res

@@ -9,14 +9,15 @@ def chat(req: ChatRequest):
     if user is None:
         res.solve__code(1)
         res.emit_back()
-        return
+        return res.to_json()
 
     room = get_user_room(req.session)
     if room is None:
         res.solve__code(2)
         res.emit_back()
-        return
+        return res.to_json()
 
     res.solve__code(0)
     res.solve__message(req.message)
     res.emit_to_room(room.id)
+    return res.to_json()

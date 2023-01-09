@@ -13,6 +13,7 @@ def delete(req: DeleteCardRequest):
     card = user.cards.filter_by(id=req.id).first()
     if card is None:
         res.solve__code(2)
+        return res
 
     db.session.delete(card)
     res.solve__code(0)

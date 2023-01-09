@@ -13,11 +13,13 @@ def handle_connect(req: FakeFrontendConnectRequest):
     res = FakeFrontendConnectResponse()
     res.solve__session(fake_frontend_session)
     res.emit_back()
+    return res.to_json()
 
 
 def handle_init(req: InitGameResult):
     room = get_room(req.room_id)
     room.fake_frontend_id = req.game_id
+    return room
 
 
 def handle_clean(req: CleanGameResult):

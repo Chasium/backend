@@ -6,7 +6,7 @@ from db.models.card_template import CardTemplateData
 
 class CardData(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(200))
+    name = Column(String(200), unique=False)
     value = Column(Text(65535))
     user_id = Column(Integer, ForeignKey('user_data.id'))
     user = db.relationship(

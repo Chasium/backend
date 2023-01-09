@@ -64,5 +64,6 @@ def quit_room(session: str, user_name: str):
     room.player_card_id_map.pop(user_name, -1)
 
 
-def delete_room(room_id: str):
+def delete_room(session: str, room_id: str):
+    session_room_dict.pop(session)
     room_dict.pop(room_id)
